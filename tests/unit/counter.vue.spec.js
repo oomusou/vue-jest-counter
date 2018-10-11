@@ -6,23 +6,27 @@ describe('counter.vue', () => {
 
   beforeEach(() => {
     // Arrange
-    wrapper = shallowMount(Counter);
+    wrapper = shallowMount(Counter, {
+      propsData: {
+        startCount: 2,
+      },
+    });
   });
 
-  it('should be 0 when count is initialized', () => {
+  it('should be 2 when count is initialized', () => {
     // Assert
-    expect(wrapper.vm.count).toBe(0);
+    expect(wrapper.vm.count).toBe(2);
   });
 
-  it('should increment count when increment() is called', () => {
+  it('should emit latestCount event event when increment() is called', () => {
     // Act
     wrapper.vm.increment();
 
     // Assert
-    expect(wrapper.vm.count).toBe(1);
+    expect(wrapper.emitted().latestCount).toBeTruthy();
   });
 
-  it('should increment the count when button is clicked', () => {
+  it('should receive 3 with event when button is clicked', () => {
     // Arrange
     const button = wrapper.find('button');
 
@@ -30,6 +34,6 @@ describe('counter.vue', () => {
     button.trigger('click');
 
     // Assert
-    expect(wrapper.vm.count).toBe(1);
+    expect(wrapper.emitted().latestCount[0]).toEqual([3]);
   });
 });
