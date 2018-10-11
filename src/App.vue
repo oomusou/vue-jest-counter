@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <counter></counter>
+    <counter :start-count="count" @latestCount="showCount"></counter>
+    <h1>{{ count }}</h1>
   </div>
 </template>
 
@@ -11,6 +12,16 @@ export default {
   name: 'app',
   components: {
     counter,
+  },
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    showCount(count) {
+      this.count = count;
+    },
   },
 };
 </script>
